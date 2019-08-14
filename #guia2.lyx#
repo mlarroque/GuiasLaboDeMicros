@@ -375,18 +375,7 @@ Esta magnitud depende de la cantidad de puertos, según el dato que se expone
 placement H
 wide false
 sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\align center
-\begin_inset Graphics
-	filename ImagenesGuia2/corrienteMaxima.PNG
-	scale 50
-
-\end_inset
-
-
-\end_layout
+status open
 
 \begin_layout Plain Layout
 \begin_inset Caption Standard
