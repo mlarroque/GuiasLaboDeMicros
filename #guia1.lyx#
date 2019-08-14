@@ -464,8 +464,7 @@ output
 \end_inset
 
  esta asociada a la direcciones de memoria A000 - AFFF, a los cuatro bits
- más significativos del bus de address se conectaron cuatro leds que se
- deberían prender según el valor hexadecimal 
+ más que se deberían prender según el valor hexadecimal 
 \begin_inset Quotes eld
 \end_inset
 
@@ -476,111 +475,8 @@ A
  (1010).
 \end_layout
 
-\begin_layout Standard
-El programa utilizado para la verificación del correcto conexionado es el
- siguiente:
-\end_layout
-
-\begin_layout Standard
-PROGRAMA DE PRUEBAAAAAAAAA
-\end_layout
-
-\begin_layout Standard
-A continuación se exponen algunas de las mediciones realizadas con osciloscopio
- a partir de las cuales se verificó el correcto funcionamiento del periférico:
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-placement H
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-Medición 1 - NOMBRE DE LA MEDICIÓOOOOOON
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-placement H
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-Medición 1 - NOMBRE DE LA MEDICIÓOOOOOON
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-Finalmente, se muestra una imagen del conexionado del periférico que se
- encuentra montado sobre una placa multiperforada:
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-placement H
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-Conexionado del periférico
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-
-
+\begin_layout Section
+Problemas Suplementarios
 \end_layout
 
 \end_body
