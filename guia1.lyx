@@ -112,7 +112,18 @@ Equinoxe
 placement H
 wide false
 sideways false
-status collapsed
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename imagenesGuia1/diagramasDeTiemposEsperados.PNG
+	scale 50
+
+\end_inset
+
+
+\end_layout
 
 \begin_layout Plain Layout
 \begin_inset Caption Standard
