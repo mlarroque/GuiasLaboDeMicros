@@ -29,9 +29,10 @@
 \bibtex_command default
 \index_command default
 \paperfontsize default
+\spacing single
 \use_hyperref false
 \papersize default
-\use_geometry false
+\use_geometry true
 \use_package amsmath 1
 \use_package amssymb 1
 \use_package cancel 1
@@ -44,6 +45,7 @@
 \use_package undertilde 1
 \cite_engine basic
 \cite_engine_type default
+\biblio_style plain
 \use_bibtopic false
 \use_indices false
 \paperorientation portrait
@@ -55,6 +57,13 @@
 \shortcut idx
 \color #008000
 \end_index
+\leftmargin 1cm
+\topmargin 1cm
+\rightmargin 1cm
+\bottommargin 1cm
+\headheight 1cm
+\headsep 1cm
+\footskip 1cm
 \secnumdepth 3
 \tocdepth 3
 \paragraph_separation indent
@@ -187,41 +196,6 @@ A
  lleva más ciclos de maquina para ser ejecutada que la instrucción de jump.
 \end_layout
 
-\begin_layout Standard
-A continuación se expone una imagen de la señal de LIR medida en el osciloscopio
-, con el objetivo de mostrar lo mencionado anteriormente y además para hacer
- notar la diferencia entre la señal ideal de los diagramas de tiempo y la
- señal real con irregularidades presente en el circuito:
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-placement H
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-Señal de LIR (negada) medida
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
 \begin_layout Section
 Dump de zona de memoria libre
 \end_layout
@@ -348,9 +322,23 @@ data strobe
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename imagenesGuia1/scope_4.png
+	scale 30
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename imagenesGuia1/scope_3.png
+	scale 30
+
+\end_inset
+
 
 \end_layout
 
@@ -378,12 +366,15 @@ Medición tiempo de acceso a memoria
 \begin_layout Standard
 La imagen de la izquierda corresponde a la medición de la RAM para la cual
  se obtuvo un tiempo de acceso de 
-\noun on
-ASDJASÑKDJ
-\noun default
+\begin_inset Formula $22(ns)$
+\end_inset
+
 , mientras que la medición de la derecha corresponde al tiempo de acceso
- a la ROM siendo el resultado igual a ASDJÑKASDJ, siendo este mayor al tiempo
- de acceso la memoria RAM como era de esperar.
+ a la ROM siendo el resultado igual a 
+\begin_inset Formula $33(ns)$
+\end_inset
+
+, siendo este mayor al tiempo de acceso la memoria RAM como era de esperar.
 \end_layout
 
 \begin_layout Standard
@@ -552,7 +543,7 @@ status collapsed
 \align center
 \begin_inset Graphics
 	filename imagenesGuia1/circuitito.jpeg
-	scale 40
+	scale 25
 
 \end_inset
 
