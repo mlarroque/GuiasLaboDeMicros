@@ -701,12 +701,106 @@ escribir
 \begin_inset Quotes erd
 \end_inset
 
- datos correctamente en el periférico.
+ datos correctamente en el periféricoSi en lugar de utilizar un flip flop
+ de tipo 
+\begin_inset Formula $"D"$
+\end_inset
+
+, se hubiera utilizad
 \end_layout
 
 \begin_layout Standard
 A continuación se exponen algunas de las mediciones realizadas con osciloscopio
- a partir de las cuales se verificó el correcto funcionamiento del periférico.
+ a partir de las cuales se verificó el correcto funcionamiento del periférico:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Medición 1 - NOMBRE DE LA MEDICIÓOOOOOON
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Medición 1 - NOMBRE DE LA MEDICIÓOOOOOON
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Finalmente, se muestra una imagen del conexionado del periférico que se
+ encuentra montado sobre una placa multiperforada:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Conexionado del periférico
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_body

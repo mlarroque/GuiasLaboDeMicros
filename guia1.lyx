@@ -112,7 +112,7 @@ Equinoxe
 placement H
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \align center
@@ -199,13 +199,13 @@ A continuación se expone una imagen de la señal de LIR medida en el osciloscop
 placement H
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-Señal de LIR (negada) medida
+Medición - Señal de LIR (negada)
 \end_layout
 
 \end_inset
@@ -255,10 +255,6 @@ placement H
 wide false
 sideways false
 status collapsed
-
-\begin_layout Plain Layout
-
-\end_layout
 
 \begin_layout Plain Layout
 \begin_inset Caption Standard
@@ -456,16 +452,31 @@ data strobe
 \end_layout
 
 \begin_layout Standard
-Dicho esto, se utilizó un latch ASDJAÑSKD, cuyo pin de enable (o 
+Dicho esto, se utilizó el integrado 
 \begin_inset Quotes eld
 \end_inset
 
-latch
+74 hc 374
 \begin_inset Quotes erd
 \end_inset
 
-) se lo conectó con la señal ASDJASKÑD de la placa Equinoxe y sus 8 bits
- de datos se los conectó con el bus de datos.
+ que contiene 8 flip flops tipo D, cuyo pin de enable (o 
+\begin_inset Quotes eld
+\end_inset
+
+clock
+\begin_inset Quotes erd
+\end_inset
+
+) se conectó con la señal 
+\begin_inset Formula $"IO1"$
+\end_inset
+
+ de la placa Equinoxe mientras que sus 8 entradas 
+\begin_inset Formula $"D_{x}"$
+\end_inset
+
+ fueron conectadas con el bus de datos del HC11.
  Además, para verificar que la línea de 
 \begin_inset Quotes eld
 \end_inset
@@ -493,105 +504,209 @@ El programa utilizado para la verificación del correcto conexionado es el
 \end_layout
 
 \begin_layout Standard
-PROGRAMA DE PRUEBAAAAAAAAA
+\align center
+org $2000
+\end_layout
+
+\begin_layout Standard
+\align center
+ldaa #0
+\end_layout
+
+\begin_layout Standard
+\align center
+staa $A000
+\end_layout
+
+\begin_layout Standard
+\align center
+ldaa #FF
+\end_layout
+
+\begin_layout Standard
+\align center
+staa $A000
+\end_layout
+
+\begin_layout Standard
+\align center
+jmp $2000
+\end_layout
+
+\begin_layout Standard
+A continuación se exponen imagenes de la interconexión entre la placa 
+\begin_inset Quotes eld
+\end_inset
+
+Equinoxe y los flipflops:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename imagenesGuia1/circuitito.jpeg
+	scale 40
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Implementación Física
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Luego de ejecutar el programa de prueba se logró identificar el acceso a
+ la dirección asignada, ya que se encendieron los leds indicando que el
+ nibble más significativo del bus de address logra contener 
+\begin_inset Quotes eld
+\end_inset
+
+A
+\begin_inset Quotes erd
+\end_inset
+
+ en algún momento del programa (al ejecutar la instrucción staa $A000),
+ y además porque se logró medir la señal IO1.
+ A continuación se muestran las señales de IO1 (color rosa) y data strobe
+ (color amarillo):
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename imagenesGuia1/IOyDataStrobe.png
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Medición 1 - Chip Enable /IO1 (rosa) y Data Strobe (amarillo)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Se puede notar que la activación del clock del flip flop (flanco ascendente
+ de la señal rosa) coincide con un flanco ascendente del data strobe, pero
+ esto no significa que ante la señal de flanco ascendente del clock existe
+ un dato válido, ya que para esto es necesario un tiempo luego del data
+ strobe.
+ Por ende, con el resultado de esta medición ya se podría concluir que no
+ se logra guardar datos válidos a las salidas de los flip flops.
+\end_layout
+
+\begin_layout Standard
+En efecto, en la siguiente imagen se muestra el resultado de la medición
+ de un pin de entrada 
+\begin_inset Formula $"D_{x}"$
+\end_inset
+
+ de uno de los flip flops (color amarillo) superpuesto con el de la medición
+ de la señal IO1 (color rosa) y se puede notar que el dato arriba al pin
+ luego del flanco ascendente de la señal que funciona como clock.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename imagenesGuia1/IOyData.png
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Medición 2 - Pin D y Señal IO1/Señal de clock
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+A partir de estos resultados, se puede notar que si se hubiera un 
+\begin_inset Quotes eld
+\end_inset
+
+gated - latch
+\begin_inset Quotes erd
+\end_inset
+
+ en lugar de un flip flop que se active por flanco, se hubiera logrado 
+\begin_inset Quotes eld
+\end_inset
+
+escribir
+\begin_inset Quotes erd
+\end_inset
+
+ datos correctamente en el periférico.
 \end_layout
 
 \begin_layout Standard
 A continuación se exponen algunas de las mediciones realizadas con osciloscopio
- a partir de las cuales se verificó el correcto funcionamiento del periférico:
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-placement H
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-Medición 1 - NOMBRE DE LA MEDICIÓOOOOOON
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-placement H
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-Medición 1 - NOMBRE DE LA MEDICIÓOOOOOON
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-Finalmente, se muestra una imagen del conexionado del periférico que se
- encuentra montado sobre una placa multiperforada:
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-placement H
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-Conexionado del periférico
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-
-
+ a partir de las cuales se verificó el correcto funcionamiento del periférico.
 \end_layout
 
 \end_body
