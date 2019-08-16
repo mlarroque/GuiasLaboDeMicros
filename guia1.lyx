@@ -7,7 +7,7 @@
 \textclass article
 \use_default_options true
 \maintain_unincluded_children false
-\language english
+\language spanish
 \language_package default
 \inputencoding auto
 \fontencoding global
@@ -64,7 +64,7 @@
 \paragraph_indentation default
 \is_math_indent 0
 \math_numbering_side default
-\quotes_style english
+\quotes_style french
 \dynamic_quotes 0
 \papercolumns 1
 \papersides 1
@@ -78,8 +78,21 @@
 
 \begin_body
 
-\begin_layout Part
-Guía 1 - Timing y buses (HC11)
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand input
+filename "caratulaG1.lyx"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Part*
+\begin_inset Newpage newpage
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section
@@ -213,7 +226,7 @@ dump
 \end_inset
 
  de memoria).
- Al realizar esot se obtuvo lo siguiente en la consola provista por el software
+ Al realizar esto se obtuvo lo siguiente en la consola provista por el software
  utilizado:
 \end_layout
 
@@ -223,6 +236,17 @@ placement H
 wide false
 sideways false
 status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename imagenesGuia1/dump2000.png
+	scale 50
+
+\end_inset
+
+
+\end_layout
 
 \begin_layout Plain Layout
 \begin_inset Caption Standard
@@ -316,7 +340,7 @@ data strobe
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \align center
@@ -405,7 +429,7 @@ Equinoxe
 \begin_inset Quotes erd
 \end_inset
 
- utiilzada, cuya ecuación es la siguiente:
+ utilizada, cuya ecuación es la siguiente:
 \end_layout
 
 \begin_layout Standard
@@ -519,11 +543,11 @@ jmp $2000
 \end_layout
 
 \begin_layout Standard
-A continuación se exponen imagenes de la interconexión entre la placa 
+A continuación se exponen imágenes de la Interconexión entre la placa 
 \begin_inset Quotes eld
 \end_inset
 
-Equinoxe y los flipflops:
+Equinoxe y los flip flops:
 \end_layout
 
 \begin_layout Standard
@@ -687,11 +711,6 @@ escribir
 \end_inset
 
  datos correctamente en el periférico.
-\end_layout
-
-\begin_layout Standard
-A continuación se exponen algunas de las mediciones realizadas con osciloscopio
- a partir de las cuales se verificó el correcto funcionamiento del periférico.
 \end_layout
 
 \end_body

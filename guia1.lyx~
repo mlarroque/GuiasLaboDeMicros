@@ -57,13 +57,7 @@
 \shortcut idx
 \color #008000
 \end_index
-\leftmargin 1cm
-\topmargin 1cm
-\rightmargin 1cm
-\bottommargin 1cm
-\headheight 1cm
-\headsep 1cm
-\footskip 1cm
+\rightmargin 2cm
 \secnumdepth 3
 \tocdepth 3
 \paragraph_separation indent
@@ -84,8 +78,21 @@
 
 \begin_body
 
-\begin_layout Part
-Guía 1 - Timing y buses (HC11)
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand input
+filename "caratulaG1.lyx"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Part*
+\begin_inset Newpage newpage
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section
@@ -228,7 +235,18 @@ dump
 placement H
 wide false
 sideways false
-status collapsed
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename imagenesGuia1/dump2000.png
+	scale 50
+
+\end_inset
+
+
+\end_layout
 
 \begin_layout Plain Layout
 \begin_inset Caption Standard
@@ -322,7 +340,7 @@ data strobe
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \align center
