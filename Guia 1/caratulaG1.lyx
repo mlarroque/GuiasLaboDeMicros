@@ -149,7 +149,7 @@ LARGE Instituto Tecnológico de Buenos Aires}
 \backslash
 textsc{
 \backslash
-Large 22.99 Lab de Microprocesadores}
+Large 22.99 Laboratorio de Microprocesadores}
 \backslash
 
 \backslash
@@ -162,7 +162,7 @@ Large 22.99 Lab de Microprocesadores}
 \backslash
 textsc{
 \backslash
-large Trabajo Práctico de Laboratorio $N^o~1$ }
+large Trabajo Práctico de Laboratorio N$^o~1$ }
 \backslash
 
 \backslash
@@ -370,7 +370,7 @@ textsc{Jacoby}
 
 \begin_layout Plain Layout
 
-Nicolas  
+Nicolás  
 \backslash
 textsc{Magliola}
 \backslash
@@ -422,7 +422,7 @@ end{minipage}
 \backslash
 vfill {
 \backslash
-large Entregado: 16 de Agosto de 2019}
+large Entregado: 23 de Agosto de 2019}
 \backslash
 
 \backslash
