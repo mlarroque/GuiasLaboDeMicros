@@ -160,7 +160,21 @@ Estructura del PCR.
 Entre algunos de los bits que nos serán de interés se encuentra el ISF (interrup
 t Status Flag), el bit 24, con un 0 para indicar que la configuración de
  interrupciones no está habilitada.
- También los bits 8-10 que forman parte del
+ También los bits 8-10 que forman parte del MUX (pin mux control), configurable
+ como GPIO al colocarle 001.
+ Otros que vale la pena mencionar son los bits 6, 2, 1, y 0; Drive Strength
+ Enable, Slew Rate Enable, Pull Enable y Pull Select, respectivamente.
+\end_layout
+
+\begin_layout Paragraph
+Valores de reset
+\end_layout
+
+\begin_layout Standard
+En esa misma sección especifica que los valores de reset de cada campo dependen
+ de cada puerto, y que se debe referir al capítulo Signal Multiplexing and
+ Signal Descriptions (capítulo 10).
+ Éstos valores se pueden ver en la tabla 10-2, en la sección 10.2.2.
 \end_layout
 
 \end_body

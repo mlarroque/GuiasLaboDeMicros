@@ -157,7 +157,7 @@ Estructura del PCR.
 \end_layout
 
 \begin_layout Standard
-Entre algunos de los bits que nos serán de interés se encuentra el ISF (interrup
+Entre algunos de los bits que nos serán de interés se encuentra el ISF (Interrup
 t Status Flag), el bit 24, con un 0 para indicar que la configuración de
  interrupciones no está habilitada.
  También los bits 8-10 que forman parte del MUX (pin mux control), configurable
@@ -175,6 +175,21 @@ En esa misma sección especifica que los valores de reset de cada campo dependen
  de cada puerto, y que se debe referir al capítulo Signal Multiplexing and
  Signal Descriptions (capítulo 10).
  Éstos valores se pueden ver en la tabla 10-2, en la sección 10.2.2.
+ El Slew Rate Enable (SRE) en reset se muestra inhabilitado (Disabled),
+ lo que se corresponde con un 0, (fast slew rate), es decir, no está indicado
+ un límite del mismo.
+ Por otro lado, tenemos el Pull Enable (PE) y Pull Select (PS).
+ El Pull Enable está desactivado (0) (Disabled) al resetearlo y el Pull
+ Select está en modo pull down (0).
+\end_layout
+
+\begin_layout Standard
+En cuanto a cómo se encuentra configurada su dirección debemos analizar
+ los valores de reset del Port Data Direction Register (PDDR), que nos indica
+ justamente si está configurado en modo input (entrada) o output (salida).
+ La información pertinente se encuentra en la sección 55.2.6.
+ El Reference Manual nos indica que en estado de reset, los 32 bits se encuentra
+n en 0, y su descripción detallada informa que 0 es modo input para un GPIO.
 \end_layout
 
 \end_body
