@@ -222,5 +222,5 @@ GPIO_Type * getPORTaccess(uint8_t port)
 			portPointer = PORTE;
 			break;
 	}
-	return portPinter;
+	return portPointer;
 }
