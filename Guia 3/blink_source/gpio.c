@@ -17,6 +17,22 @@
 #ifndef GPIO_STRUCT
 #define GPIO_STRUCT 1
 #define PORT_STRUCT 2
+#endif //GPIO_STRUCT
+
+_Bool isPinValid(pin_t pin);
+
+void setPCRmux(PORT_Type * p2port, uint8_t numPin, uint8_t mux);
+
+void setPCRpullEnable(PORT_Type * portPointer, uint8_t numPin);
+
+void setPCRpullUp(PORT_Type * portPointer, uint8_t numPin);
+
+void setPCRpullDown(PORT_Type * portPointer, uint8_t numPin);
+
+void setGPIOdataOut(GPIO_Type * gpioPortPointer, uint8_t numPin, _Bool value);
+
+void setGPIOddr(GPIO_Type * p2port, uint8_t numPin, uint32_t mode);
+
 /**
 * @brief Configures the specified pin to behave either as an input or an output
  * @param pin the pin whose mode you wish to set (according PORTNUM2PIN)
@@ -26,30 +42,30 @@ void gpioMode (pin_t pin, uint8_t mode)
 {
 	uint8_t port = PIN2PORT(pin);
 	uint8_t numPin = PIN2NUM(pin);
-	PORT_Type * portPointer;
-	GPIO_Type * gpioPortPointer;
+	PORT_Type * portPointer[] = PORT_BASE_PTRS;
+	GPIO_Type * gpioPortPointer[] = GPIO_BASE_PTRS;
 	if (isPinValid(pin))  //procedo a configurar el pin siempre que este pertenezca a algunos de los puertos A,B,C,D o E
 	{
-		portPointer = (PORT_Type *)getStructAccess(PORT_STRUCT, port);
-		gpioPortPointer = (GPIO_Type *)getStructAccess(GPIO_STRUCT, port);
+		//portPointer = (PORT_Type *)getStructAccess(PORT_STRUCT, port);
+		//gpioPortPointer = (GPIO_Type *)getStructAccess(GPIO_STRUCT, port);
 
-		setPCRmux(portPointer, numPin, GPIO_MUX); //configuro el pin como GPIO modificando el mux del PCR
+		setPCRmux(portPointer[port], numPin, GPIO_MUX); //configuro el pin como GPIO modificando el mux del PCR
 
 		if(mode == INPUT_PULLUP || mode == INPUT_PULLDOWN) //se modifica el PCR en caso de que el usuario requiera un pull up/down por software
 		{
-			setPCRpullEnable(portPointer, numPin);
+			setPCRpullEnable(portPointer[port], numPin);
 			if (mode == INPUT_PULLUP)
 			{
-				setPCRpullUp(portPointer, numPin);
+				setPCRpullUp(portPointer[port], numPin);
 			}
 			else
 			{
-				setPCRpullDown(portPointer, numPin);
+				setPCRpullDown(portPointer[port], numPin);
 			}
 			mode = INPUT;
 
 		}
-		setGPIOddr(gpioPortPointer, numPin, (uint32_t) mode); //configuro el pin como entrada o salida modificando el data direction register (ddr)
+		setGPIOddr(gpioPortPointer[port], numPin, (uint32_t) mode); //configuro el pin como entrada o salida modificando el data direction register (ddr)
 
 	}
 }
@@ -64,11 +80,12 @@ void gpioWrite (pin_t pin, _Bool value)
 {
 	uint8_t port = PIN2PORT(pin);
 	uint8_t numPin = PIN2NUM(pin);
-	GPIO_Type * gpioPortPointer;
-	gpioPortPointer = (GPIO_Type *)getStructAccess(GPIO_STRUCT, port);
-	if((gpioPortPointer->PDDR) & maskPin)  //Si es un pin de output
+	GPIO_Type * gpioPortPointer[] = GPIO_BASE_PTRS;
+	uint32_t maskPin = (uint32_t)(1 << numPin);
+	//gpioPortPointer = (GPIO_Type *)getStructAccess(GPIO_STRUCT, port);
+	if((gpioPortPointer[port]->PDDR) & maskPin)  //Si es un pin de output
 	{
-		setGPIOdataOut(gpioPortPointer, numPin, value);
+		setGPIOdataOut(gpioPortPointer[port], numPin, value);
 
 	}
 }
@@ -79,13 +96,14 @@ void gpioWrite (pin_t pin, _Bool value)
  */
 void gpioToggle (pin_t pin)
 {
+	uint8_t port = PIN2PORT(pin);
 	uint8_t numPin = PIN2NUM(pin);
-	GPIO_Type * gpioPortPointer;
-	gpioPortPointer = (GPIO_Type *)getStructAccess(GPIO_STRUCT, port);
-	uint32_t mask2delete = ((uint32_t)(1<<numPin));
+	GPIO_Type * gpioPortPointer[] = GPIO_BASE_PTRS;
+	//gpioPortPointer = (GPIO_Type *)getStructAccess(GPIO_STRUCT, port);
+	uint32_t mask2write = ((uint32_t)(1<<numPin));
 	uint32_t mask2delete = ~mask2write;
-	gpioPortPointer->PTOR = gpioPortPointer->PTOR & mask2delete;
-	gpioPortPointer->PTOR = gpioPortPointer->PTOR | mask2write;
+	gpioPortPointer[port]->PTOR = gpioPortPointer[port]->PTOR & mask2delete;
+	gpioPortPointer[port]->PTOR = gpioPortPointer[port]->PTOR | mask2write;
 }
 
 /**
@@ -95,11 +113,12 @@ void gpioToggle (pin_t pin)
  */
 _Bool gpioRead (pin_t pin)
 {
+	uint8_t port = PIN2PORT(pin);
 	uint8_t numPin = PIN2NUM(pin);
-	GPIO_Type * gpioPortPointer;
-	gpioPortPointer = (GPIO_Type *)getStructAccess(GPIO_STRUCT, port);
+	GPIO_Type * gpioPortPointer[] = GPIO_BASE_PTRS;
+	//gpioPortPointer = (GPIO_Type *)getStructAccess(GPIO_STRUCT, port);
 	uint32_t mask2read = (uint32_t)(1<<numPin);
-	return ((gpioPortPointer->PDIR) & mask2read);
+	return ((gpioPortPointer[port]->PDIR) & mask2read);
 
 }
 
@@ -107,7 +126,7 @@ _Bool gpioRead (pin_t pin)
 _Bool isPinValid(pin_t pin)
 {
 	_Bool ret = false;
-	if((pin >= PORTNUM2PIN(PA,0)) && (pin >= PORTNUM2PIN(PE,31)))
+	if((pin >= PORTNUM2PIN(PA,0)) && (pin <= PORTNUM2PIN(PE,31)))
 	{
 		ret = true;
 	}
@@ -131,19 +150,19 @@ void setPCRpullEnable(PORT_Type * portPointer, uint8_t numPin)
 }
 void setPCRpullUp(PORT_Type * portPointer, uint8_t numPin)
 {
-	u_int32 maskPE = (HIGH << PORT_PCR_PS_SHIFT);
+	uint32_t maskPE = (HIGH << PORT_PCR_PS_SHIFT);
 	(portPointer->PCR)[numPin] = ((portPointer->PCR)[numPin] | maskPE);
 }
 void setPCRpullDown(PORT_Type * portPointer, uint8_t numPin)
 {
-	u_int32 maskPE = (HIGH << PORT_PCR_PE_SHIFT);
+	uint32_t maskPE = (HIGH << PORT_PCR_PE_SHIFT);
 	(portPointer->PCR)[numPin] = ((portPointer->PCR)[numPin] & (~maskPE));
 }
 
 
 void setGPIOddr(GPIO_Type * p2port, uint8_t numPin, uint32_t mode)
 {
-	uint32_t maskDDDR = (mode << numPin);  //mode es 1 o 0 dependiendo si es INPUT o OUTPUT
+	uint32_t maskDDR = (mode << numPin);  //mode es 1 o 0 dependiendo si es INPUT o OUTPUT
 	p2port->PDDR = ((p2port->PDDR) | maskDDR);
 
 }
@@ -153,9 +172,9 @@ void setGPIOdataOut(GPIO_Type * gpioPortPointer, uint8_t numPin, _Bool value)
 	uint32_t maskDataOut = (uint32_t)(value << numPin);
 	uint32_t mask2delete = ~((uint32_t)(1 << numPin));
 	gpioPortPointer->PDOR = (gpioPortPointer->PDOR & mask2delete);
-	gpioPortPointer->PDOR = (gpioPortPointer->PDOR | maskData);
+	gpioPortPointer->PDOR = (gpioPortPointer->PDOR | maskDataOut);
 }
-
+/*
 void * getStructAccess(int structType, uint8_t port)
 {
 	int i;
@@ -197,13 +216,13 @@ GPIO_Type * getGPIOaccess(uint8_t port)
 			//portPointer = PORTE;
 			break;
 	}
-	return gpioPortPinter;
+	return gpioPortPointer;
 }
 
 
 GPIO_Type * getPORTaccess(uint8_t port)
 {
-	GPIO_Type * portPointer = PORTA;
+	PORT_Type * portPointer = PORTA;
 	switch(port)
 	{
 		case PA: //gpioPortPointer = GPIOA;
@@ -224,3 +243,5 @@ GPIO_Type * getPORTaccess(uint8_t port)
 	}
 	return portPointer;
 }
+
+*/
