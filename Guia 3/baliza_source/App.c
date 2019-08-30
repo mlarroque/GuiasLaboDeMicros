@@ -10,9 +10,9 @@
 
 #include "board.h"
 #include "gpio.h"
+#include "SysTick.h"
 
-#define DELAY_BASE 900000UL
-#define DELAY_LIMIT_CONST 10
+#define BALIZA_FREQ_HZ 15U
 
 
 /*******************************************************************************
@@ -24,10 +24,12 @@
  * FUNCTION PROTOTYPES FOR PRIVATE FUNCTIONS WITH FILE LEVEL SCOPE
  ******************************************************************************/
 
-static void delayLoop(uint32_t veces);
 _Bool buttonLastState = false;
 _Bool isBalizaOn = false;
-int delayLimit = DELAY_LIMIT_CONST;
+//_Bool rebote = false;
+
+void sysTickCallback(void);
+void switchCallback(void);
 
 /*******************************************************************************
  *******************************************************************************
@@ -45,15 +47,54 @@ void App_Init (void)
     gpioMode(PIN_LED_EXTERNAL , EXTERNAL_LED_TYPE);
     //gpioMode(PIN_SWITCH_EXTERNAL , EXTERNAL_SW_TYPE);
     gpioWrite(PIN_LED_RED, HIGH);
+
+    gpioIRQ (PIN_SW3, GPIO_IRQ_MODE_FALLING_EDGE, switchCallback);
+    SysTick_Init(&sysTickCallback);
+
 }
 
 /* Función que se llama constantemente en un ciclo infinito */
 void App_Run (void)
 {
 
-	_Bool buttonResult = !gpioRead(PIN_SW3); //SW3 es  activo bajo, esta presionado cuando se lee cero lógico
-	if((buttonResult != (buttonLastState)) && (buttonResult) ) //Se ingresa al bloque si se presionó el botón.
+	//espero interrupciones y realizo ISRs.
+}
+
+
+/*******************************************************************************
+ *******************************************************************************
+                        LOCAL FUNCTION DEFINITIONS
+ *******************************************************************************
+ ******************************************************************************/
+
+
+
+void sysTickCallback(void)
+{
+	static uint32_t counter = 0;
+	if(isBalizaOn)
 	{
+		if(counter == (SYSTICK_ISR_FREQ_HZ/BALIZA_FREQ_HZ))
+		{
+			gpioToggle(PIN_LED_EXTERNAL);
+			counter = 0;
+		}
+		else
+		{
+			counter++;
+		}
+
+	}
+	else
+	{
+		counter = 0;
+	}
+}
+
+void switchCallback(void)
+{
+	//if(!rebote)
+	//{
 		isBalizaOn = !isBalizaOn;
 		gpioToggle(PIN_LED_RED);
 		if (isBalizaOn)
@@ -64,33 +105,9 @@ void App_Run (void)
 		{
 			gpioWrite(PIN_LED_EXTERNAL, LOW); //que la baliza se apague inmediatamente
 		}
-	}
-	buttonLastState = buttonResult;
-	if (isBalizaOn)
-	{
+	//}
 
-		delayLoop(DELAY_BASE);
-		if (!(delayLimit--))
-		{
-			gpioToggle(PIN_LED_EXTERNAL);
-			delayLimit = DELAY_LIMIT_CONST;
-		}
-
-	}
 }
-
-
-/*******************************************************************************
- *******************************************************************************
-                        LOCAL FUNCTION DEFINITIONS
- *******************************************************************************
- ******************************************************************************/
-
-static void delayLoop(uint32_t veces)
-{
-    while ((veces--)) asm("nop");
-}
-
 
 /*******************************************************************************
  ******************************************************************************/
