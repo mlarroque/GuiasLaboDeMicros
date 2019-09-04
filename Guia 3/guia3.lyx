@@ -13,7 +13,7 @@
 \fontencoding global
 \font_roman "default" "default"
 \font_sans "default" "default"
-\font_typewriter "default" "default"
+\font_typewriter "cmtt" "default"
 \font_math "auto" "auto"
 \font_default_family default
 \use_non_tex_fonts false
@@ -174,7 +174,8 @@ Valores de reset
 En esa misma sección especifica que los valores de reset de cada campo dependen
  de cada puerto, y que se debe referir al capítulo Signal Multiplexing and
  Signal Descriptions (capítulo 10).
- Éstos valores se pueden ver en la tabla 10-2, en la sección 10.2.2.
+ Éstos valores se pueden ver en la tabla 10-2, que se muestra a continuación,
+ en la sección 10.2.2.
  El Slew Rate Enable (SRE) en reset se muestra inhabilitado (Disabled),
  lo que se corresponde con un 0, (fast slew rate), es decir, no está indicado
  un límite del mismo.
@@ -184,12 +185,130 @@ En esa misma sección especifica que los valores de reset de cada campo dependen
 \end_layout
 
 \begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename imagenes/ports at reset.PNG
+	scale 60
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Algunos valores de reset de los puertos.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
 En cuanto a cómo se encuentra configurada su dirección debemos analizar
  los valores de reset del Port Data Direction Register (PDDR), que nos indica
  justamente si está configurado en modo input (entrada) o output (salida).
  La información pertinente se encuentra en la sección 55.2.6.
  El Reference Manual nos indica que en estado de reset, los 32 bits se encuentra
 n en 0, y su descripción detallada informa que 0 es modo input para un GPIO.
+\end_layout
+
+\begin_layout Section
+SDK
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+/** PORT - Register Layout Typedef */ 
+\end_layout
+
+\begin_layout Plain Layout
+
+typedef struct {   
+\end_layout
+
+\begin_layout Plain Layout
+
+	__IO uint32_t PCR[32];          /**< Pin Control Register n */   
+\end_layout
+
+\begin_layout Plain Layout
+
+	__O  uint32_t GPCLR;            /**< Global Pin Control Low Register */
+\end_layout
+
+\begin_layout Plain Layout
+
+	__O  uint32_t GPCHR;        	/**< Global Pin Control High Register */ 
+       
+\end_layout
+
+\begin_layout Plain Layout
+
+	uint8_t RESERVED_0[24];   
+\end_layout
+
+\begin_layout Plain Layout
+
+	__IO uint32_t ISFR;             /**< Interrupt Status Flag Register */
+        
+\end_layout
+
+\begin_layout Plain Layout
+
+	uint8_t RESERVED_1[28];   
+\end_layout
+
+\begin_layout Plain Layout
+
+	__IO uint32_t DFER;             /**< Digital Filter Enable Register */
+   
+\end_layout
+
+\begin_layout Plain Layout
+
+	__IO uint32_t DFCR;             /**< Digital Filter Clock Register */ 
+  
+\end_layout
+
+\begin_layout Plain Layout
+
+	__IO uint32_t DFWR;             /**< Digital Filter Width Register */ 
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+} PORT_Type;
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+MK64F12.h
 \end_layout
 
 \end_body

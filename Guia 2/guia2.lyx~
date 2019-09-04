@@ -75,8 +75,14 @@
 
 \begin_body
 
-\begin_layout Part
-Guía 2 - Introducción a Kinetis
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand include
+filename "caratulaG2.lyx"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section
@@ -234,24 +240,20 @@ den a los pins 1-7 y 31-33.
 placement H
 wide false
 sideways false
-status open
-
-\begin_layout Plain Layout
-
-\end_layout
+status collapsed
 
 \begin_layout Plain Layout
 \align center
 \begin_inset Graphics
 	filename ImagenesGuia2/Primeros6PTE.PNG
-	scale 40
+	scale 60
 
 \end_inset
 
 
 \begin_inset Graphics
 	filename ImagenesGuia2/segundaTandaPTE.PNG
-	scale 40
+	scale 60
 
 \end_inset
 
